@@ -18,12 +18,19 @@ class Point {
   }
   
   void rotateMe(Point center, float angle) {
+    Point tmPnt = new Point(0,0);
+    
     subtractPoint(center);
     
-    x = (center.x) * cos(angle) - (center.y) * sin(angle);
-    y = (center.y) * cos(angle) + (center.x) * sin(angle);
+    tmPnt.x = (x) * cos(angle) - (y) * sin(angle);
+    tmPnt.y = (y) * cos(angle) + (x) * sin(angle);
     
-    addPoint(center);
+    
+    tmPnt.addPoint(center);
+    
+    x = tmPnt.x;
+    y = tmPnt.y;
+    
   }
   
   Point subtractPoint(Point p1, Point p2) {

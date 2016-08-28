@@ -27,24 +27,11 @@ class Car {
     edge[2] = new Point(position.x + carDimension.w/2, position.y + carDimension.h/2);
     edge[3] = new Point(position.x + carDimension.w/2, position.y - carDimension.h/2);
     
-    edge[0] = rotatePoint(edge[0], position, orientation); 
-    edge[1] = rotatePoint(edge[1], position, orientation);
-    edge[2] = rotatePoint(edge[2], position, orientation);
-    edge[3] = rotatePoint(edge[3], position, orientation);
+    edge[0].rotateMe(position, orientation); 
+    edge[1].rotateMe(position, orientation);
+    edge[2].rotateMe(position, orientation);
+    edge[3].rotateMe(position, orientation);
   }
-  
-  Point rotatePoint(Point point, Point centerPoint, float orientation){
-    Point retPoint = new Point(0, 0);
-    
-    point.subtractPoint(centerPoint);
-    
-    retPoint.x = (point.x) * cos(orientation) - (point.y) * sin(orientation);
-    retPoint.y = (point.y) * cos(orientation) + (point.x) * sin(orientation);
-    
-    retPoint.addPoint(centerPoint);
-    
-    return retPoint;
-  } 
   
   void incrementOrientation(){
     orientation += PI/32;
