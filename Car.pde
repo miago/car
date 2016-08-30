@@ -2,6 +2,7 @@ class Car {
   
   Dimension carDimension;
   float orientation;
+  float wheelOrientation;
   Point position;
   Point[] edge;
   Wheel[] wheels;
@@ -48,10 +49,37 @@ class Car {
   }
   
   void incrementOrientation(){
-    orientation += PI/32;
+    wheelOrientation += PI / 32;
+    boundWheelOrientation();
+    wheels[0].orientation = wheelOrientation;
+    wheels[1].orientation = wheelOrientation;
   }
   
-   void decrementOrientation(){
-    orientation -= PI/32;
+  void decrementOrientation(){
+    wheelOrientation -= PI / 32;
+    boundWheelOrientation();
+    wheels[0].orientation = wheelOrientation;
+    wheels[1].orientation = wheelOrientation;
+  }
+  
+  void boundWheelOrientation(){
+    if(wheelOrientation < -Settings.w_maxOrientation) {
+      wheelOrientation = -Settings.w_maxOrientation;
+    }
+    
+    if(wheelOrientation > Settings.w_maxOrientation) {
+      wheelOrientation = Settings.w_maxOrientation;
+    }
+      
+  }
+  
+  void makeOneStepForward(){
+    position.x = position.x + cos(orientation+PI/2)*3;
+    position.y = position.y + sin(orientation+PI/2)*3;
+  }
+  
+  void makeOneStepBackward(){
+    position.x = position.x + cos(orientation+PI/2)*3;
+    position.y = position.y + sin(orientation+PI/2)*3;
   }
 }

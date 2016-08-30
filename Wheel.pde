@@ -2,6 +2,7 @@ class Wheel {
   float offsetFromCarCenter_x;
   float offsetFromCarCenter_y;
   float orientation;
+  Point wheelCenter;
   Point[] edge;
   Car car;
   
@@ -24,14 +25,32 @@ class Wheel {
   }
   
   void recalculateWheelEdges() {
-    edge[0] = new Point(car.position.x + offsetFromCarCenter_x - Settings.w_wheelSize_w/2, car.position.y + offsetFromCarCenter_y - Settings.w_wheelSize_h/2);
-    edge[1] = new Point(car.position.x + offsetFromCarCenter_x - Settings.w_wheelSize_w/2, car.position.y + offsetFromCarCenter_y + Settings.w_wheelSize_h/2);
-    edge[2] = new Point(car.position.x + offsetFromCarCenter_x + Settings.w_wheelSize_w/2, car.position.y + offsetFromCarCenter_y + Settings.w_wheelSize_h/2);
-    edge[3] = new Point(car.position.x + offsetFromCarCenter_x + Settings.w_wheelSize_w/2, car.position.y + offsetFromCarCenter_y - Settings.w_wheelSize_h/2);
     
-    edge[0].rotateMe(car.position, car.orientation+orientation);
-    edge[1].rotateMe(car.position, car.orientation+orientation);
-    edge[2].rotateMe(car.position, car.orientation+orientation);
-    edge[3].rotateMe(car.position, car.orientation+orientation); 
+    wheelCenter = new Point(car.position.x + offsetFromCarCenter_x, car.position.y + offsetFromCarCenter_y);
+    
+    edge[0] = new Point(wheelCenter.x - Settings.w_wheelSize_w/2, wheelCenter.y - Settings.w_wheelSize_h/2);
+    edge[1] = new Point(wheelCenter.x - Settings.w_wheelSize_w/2, wheelCenter.y + Settings.w_wheelSize_h/2);
+    edge[2] = new Point(wheelCenter.x + Settings.w_wheelSize_w/2, wheelCenter.y + Settings.w_wheelSize_h/2);
+    edge[3] = new Point(wheelCenter.x + Settings.w_wheelSize_w/2, wheelCenter.y - Settings.w_wheelSize_h/2);
+    
+    // rotate over itself
+    edge[0].rotateMe(wheelCenter, orientation);
+    edge[1].rotateMe(wheelCenter, orientation);
+    edge[2].rotateMe(wheelCenter, orientation);
+    edge[3].rotateMe(wheelCenter, orientation);
+    
+    // rotate over center of car
+    edge[0].rotateMe(car.position, car.orientation);
+    edge[1].rotateMe(car.position, car.orientation);
+    edge[2].rotateMe(car.position, car.orientation);
+    edge[3].rotateMe(car.position, car.orientation); 
+  }
+  
+  void incrementOrientation(){
+    orientation += PI/32;
+  }
+  
+  void decrementOrientation(){
+    orientation -= PI/32;
   }
 }

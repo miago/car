@@ -8,6 +8,7 @@ static class Settings {
   static int w_wheelSize_h = 25;
   static int w_wheelsOffsetFromCenter_w = 60;
   static int w_wheelsOffsetFromCenter_h = 40;
+  static float w_maxOrientation = 0.4;
   
   static int c_carOriginalPosition_x = 300;
   static int c_carOriginalPosition_y = 300;
