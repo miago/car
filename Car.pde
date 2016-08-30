@@ -4,12 +4,21 @@ class Car {
   float orientation;
   Point position;
   Point[] edge;
+  Wheel[] wheels;
   
   Car() {
     position = new Point(Settings.c_carOriginalPosition_x, Settings.c_carOriginalPosition_y);
     orientation = Settings.c_carOriginalOrientation;  
     carDimension = new Dimension(Settings.c_carSize_w, Settings.c_carSize_h);
     edge = new Point[4];
+    
+    wheels = new Wheel[4];
+
+    wheels[0] = new Wheel(+Settings.w_wheelsOffsetFromCenter_w, +Settings.w_wheelsOffsetFromCenter_h, 0, this);
+    wheels[1] = new Wheel(-Settings.w_wheelsOffsetFromCenter_w, +Settings.w_wheelsOffsetFromCenter_h, 0, this);
+    wheels[2] = new Wheel(-Settings.w_wheelsOffsetFromCenter_w, -Settings.w_wheelsOffsetFromCenter_h, 0, this);
+    wheels[3] = new Wheel(+Settings.w_wheelsOffsetFromCenter_w, -Settings.w_wheelsOffsetFromCenter_h, 0, this);
+    
   }
 
   void drawYourself() {
@@ -19,6 +28,11 @@ class Car {
     line(edge[1].x, edge[1].y, edge[2].x, edge[2].y);
     line(edge[2].x, edge[2].y, edge[3].x, edge[3].y);
     line(edge[3].x, edge[3].y, edge[0].x, edge[0].y);
+    
+    wheels[0].drawYourself();
+    wheels[1].drawYourself();
+    wheels[2].drawYourself();
+    wheels[3].drawYourself();
   }
   
   void recalculateCarEdges() {
